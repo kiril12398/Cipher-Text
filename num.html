@@ -1,1 +1,70 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A1Z26 Encoder</title>
+<style>
+  body {
+    background: #0d0d0d;
+    color: #c9c9c9;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    gap: 20px;
+  }
+  input {
+    background: #1a1a1a;
+    color: #c9c9c9;
+    border: 1px solid #333;
+    padding: 12px 16px;
+    font-family: inherit;
+    font-size: 20px;
+    letter-spacing: 2px;
+    width: 300px;
+    text-align: center;
+    outline: none;
+  }
+  input:focus { border-color: #666; }
+  #output {
+    font-size: 24px;
+    letter-spacing: 3px;
+    color: #7fd1ff;
+    min-height: 30px;
+    word-break: break-all;
+    max-width: 600px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <input id="input" type="text" placeholder="type here..." autofocus>
+  <div id="output"></div>
+
+<script>
+  const input = document.getElementById("input");
+  const output = document.getElementById("output");
+
+  function encode(text) {
+    return text
+      .toLowerCase()
+      .split("")
+      .map(ch => {
+        if (ch >= "a" && ch <= "z") {
+          return ch.charCodeAt(0) - 96; // a=1, z=26
+        }
+        return ""; // ignore anything that isn't a letter
+      })
+      .join("");
+  }
+
+  input.addEventListener("input", () => {
+    output.textContent = encode(input.value);
+  });
+</script>
+</body>
+</html>
